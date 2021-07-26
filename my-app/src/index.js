@@ -79,7 +79,7 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[history.length - 1];
 		const squares = current.squares.slice();
-    if(this.calculateWinner(squares) || squares[i] != null) {
+    if(calculateWinner(squares) != null || squares[i] != null) {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -95,6 +95,15 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares);
+
+    const moves = history.map((board, move) => {
+      const description = move == 0 ? "Go to game start" : "Go to move #" + move;
+      return (
+        <li>
+          <button onClick={this.jumpTo(move)}>{description}</button>
+        </li>
+      );
+    });
 
     let status;
     if(winner == null) {
@@ -114,7 +123,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
