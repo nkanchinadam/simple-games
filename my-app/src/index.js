@@ -109,7 +109,7 @@ class Game extends React.Component {
       const description = move == 0 ? "Go to game start" : "Go to move #" + move;
       return (
         <li key={move}>
-          <button onClick={this.jumpTo(move)}>{description}</button>
+          <button onClick={() => this.jumpTo(move)}>{description}</button>
         </li>
       );
     });
