@@ -124,7 +124,7 @@ class Game extends React.Component {
     });
 
     let status;
-    if(winner == null && nullCheck(current)) {
+    if(winner == null && nullCheck(current.squares)) {
       status = "Tied game"
     }
     else if(winner == null) {
