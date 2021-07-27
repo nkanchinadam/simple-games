@@ -33,6 +33,15 @@ function calculateWinner(squares) {
   }
   return null;
 };
+
+function nullCheck(squares) {
+  for(let i = 0; i < squares.length; i++) {
+    if(squares[i] == null) {
+      return false;
+    }
+  }
+  return true;
+}
 class Board extends React.Component {
   renderSquare(i) {
     return <Square
@@ -115,11 +124,14 @@ class Game extends React.Component {
     });
 
     let status;
-    if(winner == null) {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    if(winner == null && nullCheck(current)) {
+      status = "Tied game"
+    }
+    else if(winner == null) {
+      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
     else {
-      status = 'Winner: ' + winner;
+      status = "Winner: " + winner;
     }
     
     return (
