@@ -54,10 +54,10 @@ export class Game extends React.Component {
   
     let status;
     if(winner == null && nullCheck(current.squares)) {
-      status = "Tied game"
+      status = "Tied game";
     }
     else if(winner == null) {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = "Next player: " + (this.state.xIsNext ? 'X' : 'Os');
     }
     else {
       status = "Winner: " + winner;
