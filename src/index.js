@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {Game} from './tictactoe.js';
+//import {Game} from './tictactoe.js';
+import {UltimateGame} from './ultimatettt.js';
   
 // ========================================
   
 ReactDOM.render(
-  <Game />,
+  <UltimateGame />,
   document.getElementById('root')
 );  

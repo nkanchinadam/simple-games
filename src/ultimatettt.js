@@ -1,16 +1,17 @@
 import React from 'react';
 import './index.css';
-import {Board, Game, calculateWinner, nullCheck} from './board.js';
+import {Board, calculateWinner, nullCheck} from './board.js';
 
 function createReducedBoard(boards) {
-  reduced = Array(9);
+  let reduced = Array(9);
   for(let i = 0; i < reduced.length; i++) {
     reduced[i] = calculateWinner(boards[i]);
   }
+  return reduced;
 }
 
 function calculateUltimateWinner(boards) {
-  reduced = createReducedBoard(boards)
+  let reduced = createReducedBoard(boards)
   return calculateWinner(reduced);
 }
 
@@ -48,9 +49,13 @@ class UltimateBoard extends React.Component {
 export class UltimateGame extends React.Component {
   constructor(props) {
     super(props);
+    let boards = Array(9);
+    for(let i = 0; i < boards.length; i++) {
+      boards[i] = Array(9).fill(null);
+    }
     this.state = {
       history: [{
-        boards: Array(9).fill(Array(9).fill(null)),
+        boards: boards,
         nextBoard: null
       }],
       stepNumber: 0,
@@ -66,7 +71,7 @@ export class UltimateGame extends React.Component {
       boards[i] = current.boards.slice();
     }
 
-    if(boards[i][j] != null || calculateUltimateWinner(boards) != null || (current.nextBoard != null && current.nextBoard != i)) {
+    if(boards[i][j] != null || calculateUltimateWinner(boards) != null || (current.nextBoard != null && current.nextBoard !== i)) {
       return;
     }
 
@@ -88,7 +93,7 @@ export class UltimateGame extends React.Component {
   jumpTo(move) {
     this.setState({
       stepNumber: move,
-      xIsNext: move % 2 == 0
+      xIsNext: move % 2 === 0
     });
   }
 
@@ -109,11 +114,11 @@ export class UltimateGame extends React.Component {
       status = "Winner: " + winner;
     }
 
-    moves = history.map((boards, move) => {
-      const description = move == 0 ? "Go to game start" : "Go to move #" + move;
+    let moves = history.map((boards, move) => {
+      const description = move === 0 ? "Go to game start" : "Go to move #" + move;
       return (
         <li key={move}>
-          <button onClick={this.jumpTo(move)}>{description}</button>
+          <button onClick={() => this.jumpTo(move)}>{description}</button>
         </li>
       )
     });
@@ -123,6 +128,7 @@ export class UltimateGame extends React.Component {
         <div className="game-board">
           <UltimateBoard
             boards={current.boards}
+            onClick={(i, j) => this.handleClick(i, j)}
           />
         </div>
         <div className="game-info">
