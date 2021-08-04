@@ -68,13 +68,12 @@ export class UltimateGame extends React.Component {
     const current = history[this.state.stepNumber];
     const boards = Array(9);
     for(let i = 0; i < boards.length; i++) {
-      boards[i] = current.boards.slice();
+      boards[i] = current.boards[i].slice();
     }
-
     if(boards[i][j] != null || calculateUltimateWinner(boards) != null || (current.nextBoard != null && current.nextBoard !== i)) {
       return;
     }
-
+    console.log('after check')
     boards[i][j] = this.state.xIsNext ? 'X' : 'O';
     let nextBoard = null;
     if(calculateWinner(boards[j]) == null) {
@@ -108,7 +107,7 @@ export class UltimateGame extends React.Component {
     }
     else if(winner == null) {
       let boardLocations = ["top left", "top middle", "top right", "middle left", "center", "middle right", "bottom left", "bottom middle", "bottom right"];
-      status = "Next player: " + (this.state.xIsNext ? 'X' : 'O') + (current.nextBoard == null ? " on any board" : (" on board " + boardLocations[current.nextBoard]));
+      status = "Next player: " + (this.state.xIsNext ? 'X' : 'O') + (current.nextBoard == null ? " on any board" : (" on " + boardLocations[current.nextBoard] + " board"));
     }
     else {
       status = "Winner: " + winner;
