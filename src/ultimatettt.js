@@ -113,6 +113,11 @@ export class UltimateGame extends React.Component {
       status = "Winner: " + winner;
     }
 
+    let boardDisplay = "Any";
+    if(current.nextBoard != null) {
+      boardDisplay = ["Top Left", "Top Middle", "Top Right", "Middle Left", "Center", "Middle Right", "Bottom Left", "Bottom Middle", "Bottom Right"][current.nextBoard];
+    }
+
     let moves = history.map((boards, move) => {
       const description = move === 0 ? "Go to game start" : "Go to move #" + move;
       return (
@@ -132,6 +137,7 @@ export class UltimateGame extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <div>{boardDisplay}</div>
           <ol>{moves}</ol>
         </div>
       </div>
