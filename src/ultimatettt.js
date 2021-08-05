@@ -26,21 +26,23 @@ class UltimateBoard extends React.Component {
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderBoard(0)}
-          {this.renderBoard(1)}
-          {this.renderBoard(2)}
-        </div>
-        <div className="board-row">
-          {this.renderBoard(3)}
-          {this.renderBoard(4)}
-          {this.renderBoard(5)}
-        </div>
-        <div className="board-row">
-          {this.renderBoard(6)}
-          {this.renderBoard(7)}
-          {this.renderBoard(8)}
-        </div>
+        <table>
+          <tr>
+            <td>{this.renderBoard(0)}</td>
+            <td>{this.renderBoard(1)}</td>
+            <td>{this.renderBoard(2)}</td>
+          </tr>
+          <tr>
+            <td>{this.renderBoard(3)}</td>
+            <td>{this.renderBoard(4)}</td>
+            <td>{this.renderBoard(5)}</td>
+          </tr>
+          <tr>
+            <td>{this.renderBoard(6)}</td>
+            <td>{this.renderBoard(7)}</td>
+            <td>{this.renderBoard(8)}</td>
+          </tr>
+        </table>
       </div>
     );
   }
@@ -70,7 +72,7 @@ export class UltimateGame extends React.Component {
     for(let i = 0; i < boards.length; i++) {
       boards[i] = current.boards[i].slice();
     }
-    if(boards[i][j] != null || calculateUltimateWinner(boards) != null || (current.nextBoard != null && current.nextBoard !== i)) {
+    if(boards[i][j] != null || calculateUltimateWinner(boards) != null || (current.nextBoard != null && current.nextBoard !== i) || (current.nextBoard == null && calculateWinner(boards[i]) != null)) {
       return;
     }
     console.log('after check')
@@ -106,16 +108,20 @@ export class UltimateGame extends React.Component {
       status = "Tied game";
     }
     else if(winner == null) {
-      let boardLocations = ["top left", "top middle", "top right", "middle left", "center", "middle right", "bottom left", "bottom middle", "bottom right"];
-      status = "Next player: " + (this.state.xIsNext ? 'X' : 'O') + (current.nextBoard == null ? " on any board" : (" on " + boardLocations[current.nextBoard] + " board"));
+      status = "Next player: " + (this.state.xIsNext ? 'X' : 'O');
     }
     else {
       status = "Winner: " + winner;
     }
 
-    let boardDisplay = "Any";
-    if(current.nextBoard != null) {
-      boardDisplay = ["Top Left", "Top Middle", "Top Right", "Middle Left", "Center", "Middle Right", "Bottom Left", "Bottom Middle", "Bottom Right"][current.nextBoard];
+    let boardDisplayDiv;
+    if(winner == null) {
+      let boardDisplay = "Any";
+      if(current.nextBoard != null) {
+        boardDisplay = ["Top Left", "Top Middle", "Top Right", "Middle Left", "Center", "Middle Right", "Bottom Left", "Bottom Middle", "Bottom Right"][current.nextBoard];
+      }
+      boardDisplay = "Next board: " + boardDisplay;
+      boardDisplayDiv = (<div>{boardDisplay}</div>);
     }
 
     let moves = history.map((boards, move) => {
@@ -137,7 +143,7 @@ export class UltimateGame extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <div>{boardDisplay}</div>
+          {boardDisplayDiv}
           <ol>{moves}</ol>
         </div>
       </div>
