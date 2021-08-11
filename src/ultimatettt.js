@@ -48,7 +48,7 @@ class UltimateBoard extends React.Component {
   }
 }
 
-export class UltimateGame extends React.Component {
+export class UltimateTTT extends React.Component {
   constructor(props) {
     super(props);
     let boards = Array(9);
