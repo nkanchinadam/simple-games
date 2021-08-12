@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import {Board, calculateWinner, nullCheck} from './board.js';
+import {Board, calculateWinner, nullCheck} from './board';
 
 export class TicTacToe extends React.Component {
   constructor(props) {
