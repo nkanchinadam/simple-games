@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
-import {TicTacToe} from './tictactoe';
-
+import {TicTacToe} from '../tictactoe';
+import {UltimateTTT} from '../ultimatettt';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,3 +12,5 @@ class App extends React.Component {
 
   }
 }
+
+export default App;
