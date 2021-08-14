@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.css';
-import {Board, calculateWinner, nullCheck} from './board';
+import {Board, calculateWinner, nullCheck} from './Board';
 
-function createReducedBoard(boards) {
+function createReducedBoard(boards: ('X' | 'O' | null)[][]): ('X' | 'O' | null)[] {
   let reduced = Array(9);
   for(let i = 0; i < reduced.length; i++) {
     reduced[i] = calculateWinner(boards[i]);
@@ -10,16 +10,21 @@ function createReducedBoard(boards) {
   return reduced;
 }
 
-function calculateUltimateWinner(boards) {
+function calculateUltimateWinner(boards: ('X' | 'O' | null)[][]): ('X' | 'O' | null)[] {
   let reduced = createReducedBoard(boards)
   return calculateWinner(reduced);
 }
 
-class UltimateBoard extends React.Component {
-  renderBoard(i) {
+interface UltimateBoardProps {
+  boards: ('X' | 'O' | null)[][],
+  onClick: (i: number, j: number) => void
+}
+
+class UltimateBoard extends React.Component<UltimateBoardProps, UltimateBoardState> {
+  renderBoard(i: number) {
     return <Board
       squares={this.props.boards[i]}
-      onClick={(j) => this.props.onClick(i, j)}
+      onClick={(j: number) => this.props.onClick(i, j)}
     />
   }
 
@@ -48,8 +53,8 @@ class UltimateBoard extends React.Component {
   }
 }
 
-export class UltimateTTT extends React.Component {
-  constructor(props) {
+export class UltimateTTT extends React.Component<{}, UltimateTTTState> {
+  constructor(props: {}) {
     super(props);
     let boards = Array(9);
     for(let i = 0; i < boards.length; i++) {
@@ -65,7 +70,7 @@ export class UltimateTTT extends React.Component {
     }
   }
 
-  handleClick(i, j) {
+  handleClick(i: number, j: number) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[this.state.stepNumber];
     const boards = Array(9);
@@ -91,7 +96,7 @@ export class UltimateTTT extends React.Component {
     });
   }
 
-  jumpTo(move) {
+  jumpTo(move: number) {
     this.setState({
       stepNumber: move,
       xIsNext: move % 2 === 0
@@ -124,7 +129,7 @@ export class UltimateTTT extends React.Component {
       boardDisplayDiv = (<div>{boardDisplay}</div>);
     }
 
-    let moves = history.map((boards, move) => {
+    let moves = history.map((boards: ('X' | 'O' | null)[][], move: number) => {
       const description = move === 0 ? "Go to game start" : "Go to move #" + move;
       return (
         <li key={move}>
@@ -138,7 +143,7 @@ export class UltimateTTT extends React.Component {
         <div className="game-board">
           <UltimateBoard
             boards={current.boards}
-            onClick={(i, j) => this.handleClick(i, j)}
+            onClick={(i: number, j: number) => this.handleClick(i, j)}
           />
         </div>
         <div className="game-info">

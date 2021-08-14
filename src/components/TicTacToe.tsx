@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.css';
-import {Board, calculateWinner, nullCheck} from './board';
+import {Board, calculateWinner, nullCheck} from './Board';
 
 export class TicTacToe extends React.Component {
-  constructor(props) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       history: [{
