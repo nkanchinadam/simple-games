@@ -1,6 +1,6 @@
 import React from 'react';
-import '../index.css';
-import {Board, calculateWinner, nullCheck} from './Board';
+import '../../index.css';
+import {Board, calculateWinner, tieCheck} from './Board';
 
 export class TicTacToe extends React.Component {
   constructor(props: {}) {
@@ -53,7 +53,7 @@ export class TicTacToe extends React.Component {
     });
   
     let status;
-    if(winner == null && nullCheck(current.squares)) {
+    if(winner == null && tieCheck(current.squares)) {
       status = "Tied game";
     }
     else if(winner == null) {
