@@ -1,9 +1,10 @@
 import React from 'react';
-import '.../index.css';
+import '../../index.css';
 import Square from '../Square';
+import { TicTacToePiece } from './ticTacToeHelpers';
 
 interface BoardProps {
-  squares: ('X' | 'O' | null)[];
+  squares: TicTacToePiece[];
   onClick: (i: number) => void;
 }
 

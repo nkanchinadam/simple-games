@@ -1,4 +1,6 @@
-export function calculateWinner(squares: ('X' | 'O' | null)[]): 'X' | 'O' | null {
+export type TicTacToePiece = 'X' | 'O' | null;
+
+export function calculateWinner(squares: TicTacToePiece[]): TicTacToePiece {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -19,7 +21,7 @@ export function calculateWinner(squares: ('X' | 'O' | null)[]): 'X' | 'O' | null
   return null;
 };
 
-export function tieCheck(squares: ('X' | 'O' | null)[]): boolean {
+export function tieCheck(squares: TicTacToePiece[]): boolean {
   for(let i = 0; i < squares.length; i++) {
     if(squares[i] == null) {
       return false;

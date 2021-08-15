@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../index.css';
-import {Board, calculateWinner, tieCheck} from './Board';
+import Board from './Board';
+import { calculateWinner, tieCheck } from './ticTacToeHelpers';
+
+export default function TicTacToe(props: {}) {
+  const [history, setHistory] = useState<>()
+}
 
 export class TicTacToe extends React.Component {
   constructor(props: {}) {
