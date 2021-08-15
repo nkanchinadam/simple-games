@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import '../index.css';
 import {Board, calculateWinner, nullCheck} from './Board';
 
 function createReducedBoard(boards: ('X' | 'O' | null)[][]): ('X' | 'O' | null)[] {

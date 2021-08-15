@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import '../index.css';
 import {Board, calculateWinner, nullCheck} from './Board';
 
 export class TicTacToe extends React.Component {

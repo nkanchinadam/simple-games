@@ -1,7 +1,7 @@
 import React from 'react';
-import './index.css';
-import {TicTacToe} from '../tictactoe';
-import {UltimateTTT} from '../ultimatettt';
+import '../index.css';
+import {TicTacToe} from './TicTacToe';
+import {UltimateTTT} from './UltimateTTT';
 
 class App extends React.Component {
   constructor(props) {
