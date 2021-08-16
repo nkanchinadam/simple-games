@@ -1,86 +1,66 @@
 import React, { useState } from 'react';
 import '../../index.css';
 import Board from './Board';
-import { calculateWinner, tieCheck } from './ticTacToeHelpers';
+import { calculateWinner, TicTacToePiece, tieCheck } from './ticTacToeHelpers';
 
 export default function TicTacToe(props: {}) {
-  const [history, setHistory] = useState<>()
-}
+  const [history, setHistory] = useState<{squares: TicTacToePiece[]}[]>(Array(9).fill(null));
+  const [stepNumber, setStepNumber] = useState(0);
+  const [xIsNext, setXIsNext] = useState(true);
 
-export class TicTacToe extends React.Component {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      history: [{
-        squares: Array(9).fill(null)
-      }],
-      stepNumber: 0,
-      xIsNext: true
-    };
-  }
-  
-  handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[this.state.stepNumber];
+  const handleClick = (i: number): void => {
+    const newHistory = history.slice(0, stepNumber + 1);
+    const current = newHistory[stepNumber];
     const squares = current.squares.slice();
     if(calculateWinner(squares) != null || squares[i] != null) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      history: history.concat([{
-        squares: squares
-      }]),
-      stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
-    });
+    squares[i] = xIsNext ? 'X' : 'O';
+    setHistory(newHistory.concat({squares: squares}));
+    setStepNumber(newHistory.length);
+    setXIsNext(!xIsNext);
   }
-  
-  jumpTo(move) {
-    this.setState({
-      stepNumber: move,
-      xIsNext: (move % 2) === 0
-    })
+
+  const jumpTo = (move: number): void => {
+    setStepNumber(move);
+    setXIsNext(move % 2 === 0);
   }
-  
-  render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
-  
-    const moves = history.map((board, move) => {
-      const description = move === 0 ? "Go to game start" : "Go to move #" + move;
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{description}</button>
-        </li>
-      );
-    });
-  
-    let status;
-    if(winner == null && tieCheck(current.squares)) {
-      status = "Tied game";
-    }
-    else if(winner == null) {
-      status = "Next player: " + (this.state.xIsNext ? 'X' : 'Os');
-    }
-    else {
-      status = "Winner: " + winner;
-    }
-      
+
+  const current = history[stepNumber];
+  const winner = calculateWinner(current.squares);
+
+  const moves = history.map((value: {squares: TicTacToePiece[]}, index: number): JSX.Element => {
+    const description = index === 0 ? "Go to game start" : "Go to move #" + index;
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board 
-            squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
-          />
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
-      </div>
+      <li key={index}>
+        <button onClick={() => jumpTo(index)}>{description}</button>
+      </li>
     );
+  });
+
+  let status;
+  if(winner == null && tieCheck(current.squares)) {
+    status = "Tied game";
   }
+  else if(winner == null) {
+    status = "Next player: " + (xIsNext ? 'X' : 'Os');
+  }
+  else {
+    status = "Winner: " + winner;
+  }
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board 
+          squares={current.squares}
+          onClick={(i) => handleClick(i)}
+        />
+      </div>
+      <div className="game-info">
+        <div>{status}</div>
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
 }
