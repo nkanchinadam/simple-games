@@ -1,74 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../index.css';
-import {Board, calculateWinner, nullCheck} from './Board';
+import UltimateBoard from './UltimateBoard';
+import { TicTacToePiece, calculateWinner, tieCheck } from '../TicTacToe/ticTacToeHelpers';
+import { calculateUltimateWinner, createReducedBoard } from './ultimateTTTHelpers';
 
-function createReducedBoard(boards: ('X' | 'O' | null)[][]): ('X' | 'O' | null)[] {
-  let reduced = Array(9);
-  for(let i = 0; i < reduced.length; i++) {
-    reduced[i] = calculateWinner(boards[i]);
+export default function UltimateTTT() {
+  let boards: TicTacToePiece[][] = Array(9);
+  for(let i = 0; i < boards.length; i++) {
+    boards[i] = Array(9).fill(null);
   }
-  return reduced;
-}
+  const [history, setHistory] = useState<{boards: TicTacToePiece[][], nextBoard: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | null}[]>([{boards: boards, nextBoard: null}]);
+  const [stepNumber, setStepNumber] = useState(0);
+  const [xIsNext, setXIsNext] = useState(true);
 
-function calculateUltimateWinner(boards: ('X' | 'O' | null)[][]): ('X' | 'O' | null)[] {
-  let reduced = createReducedBoard(boards)
-  return calculateWinner(reduced);
-}
+  const handleClick = (i: number, j: number): void => {
 
-interface UltimateBoardProps {
-  boards: ('X' | 'O' | null)[][],
-  onClick: (i: number, j: number) => void
-}
-
-class UltimateBoard extends React.Component<UltimateBoardProps, UltimateBoardState> {
-  renderBoard(i: number) {
-    return <Board
-      squares={this.props.boards[i]}
-      onClick={(j: number) => this.props.onClick(i, j)}
-    />
   }
 
-  render() {
-    return (
-      <div>
-        <table>
-          <tr>
-            <td>{this.renderBoard(0)}</td>
-            <td>{this.renderBoard(1)}</td>
-            <td>{this.renderBoard(2)}</td>
-          </tr>
-          <tr>
-            <td>{this.renderBoard(3)}</td>
-            <td>{this.renderBoard(4)}</td>
-            <td>{this.renderBoard(5)}</td>
-          </tr>
-          <tr>
-            <td>{this.renderBoard(6)}</td>
-            <td>{this.renderBoard(7)}</td>
-            <td>{this.renderBoard(8)}</td>
-          </tr>
-        </table>
-      </div>
-    );
+  const jumpTo(move: number) {
+
   }
+
+  
 }
 
 export class UltimateTTT extends React.Component<{}, UltimateTTTState> {
-  constructor(props: {}) {
-    super(props);
-    let boards = Array(9);
-    for(let i = 0; i < boards.length; i++) {
-      boards[i] = Array(9).fill(null);
-    }
-    this.state = {
-      history: [{
-        boards: boards,
-        nextBoard: null
-      }],
-      stepNumber: 0,
-      xIsNext: true
-    }
-  }
 
   handleClick(i: number, j: number) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -80,7 +36,6 @@ export class UltimateTTT extends React.Component<{}, UltimateTTTState> {
     if(boards[i][j] != null || calculateUltimateWinner(boards) != null || (current.nextBoard != null && current.nextBoard !== i) || (current.nextBoard == null && calculateWinner(boards[i]) != null)) {
       return;
     }
-    console.log('after check')
     boards[i][j] = this.state.xIsNext ? 'X' : 'O';
     let nextBoard = null;
     if(calculateWinner(boards[j]) == null) {
@@ -109,7 +64,7 @@ export class UltimateTTT extends React.Component<{}, UltimateTTTState> {
     const winner = calculateUltimateWinner(current.boards);
 
     let status;
-    if(winner == null && nullCheck(createReducedBoard(current.boards))) {
+    if(winner == null && tieCheck(createReducedBoard(current.boards))) {
       status = "Tied game";
     }
     else if(winner == null) {
