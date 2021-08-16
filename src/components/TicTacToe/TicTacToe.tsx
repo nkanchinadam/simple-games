@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../index.css';
-import Board from './Board';
+import TTTBoard from './TTTBoard';
 import { calculateWinner, tieCheck } from './ticTacToeHelpers';
 import { TicTacToePiece, TTTIndex } from '../types';
 
@@ -53,7 +53,7 @@ export default function TicTacToe() {
   return (
     <div className="game">
       <div className="game-board">
-        <Board 
+        <TTTBoard 
           squares={current.squares}
           onClick={(i: TTTIndex) => handleClick(i)}
         />

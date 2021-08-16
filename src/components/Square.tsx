@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import { TicTacToePiece } from './types';
+import { TicTacToePiece, SudokuPiece } from './types';
 
 interface TTTSquareProps {
   value: TicTacToePiece;
@@ -8,11 +8,11 @@ interface TTTSquareProps {
 }
 
 interface SudokuSquareProps {
-  value: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | null;
+  value: SudokuPiece | null;
   onClick: () => void;
 }
 
-export default function Square(props: (TTTSquareProps | SudokuSquareProps)) {
+export default function Square(props: TTTSquareProps | SudokuSquareProps) {
   return (
     <button
       className="square"

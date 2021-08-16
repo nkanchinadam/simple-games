@@ -3,12 +3,12 @@ import '../../index.css';
 import Square from '../Square';
 import { TicTacToePiece, TTTIndex } from '../types';
 
-interface BoardProps {
+interface TTTBoardProps {
   squares: TicTacToePiece[];
   onClick: (i: TTTIndex) => void;
 }
 
-export default function Board(props: BoardProps) {
+export default function TTTBoard(props: TTTBoardProps) {
   const renderSquare = (i: TTTIndex): JSX.Element => {
     return <Square
       value={props.squares[i]}
