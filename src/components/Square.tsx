@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import { TicTacToePiece } from './TicTacToe/ticTacToeHelpers';
+import { TicTacToePiece } from './types';
 
 interface TTTSquareProps {
   value: TicTacToePiece;

@@ -1,4 +1,4 @@
-export type TicTacToePiece = 'X' | 'O' | null;
+import { TicTacToePiece } from '../types';
 
 export function calculateWinner(squares: TicTacToePiece[]): TicTacToePiece {
   const lines = [
