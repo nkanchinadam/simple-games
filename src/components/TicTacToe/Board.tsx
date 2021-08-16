@@ -1,20 +1,20 @@
 import React from 'react';
 import '../../index.css';
 import Square from '../Square';
-import { TicTacToePiece } from './ticTacToeHelpers';
+import { TicTacToePiece, TTTIndex } from '../types';
 
 interface BoardProps {
   squares: TicTacToePiece[];
-  onClick: (i: number) => void;
+  onClick: (i: TTTIndex) => void;
 }
 
 export default function Board(props: BoardProps) {
-  const renderSquare = (i: number): JSX.Element => {
+  const renderSquare = (i: TTTIndex): JSX.Element => {
     return <Square
       value={props.squares[i]}
       onClick={() => props.onClick(i)}
     />
-  };
+  }
 
   return (
     <div>

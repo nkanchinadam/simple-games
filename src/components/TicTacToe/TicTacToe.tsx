@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import '../../index.css';
 import Board from './Board';
-import { calculateWinner, TicTacToePiece, tieCheck } from './ticTacToeHelpers';
+import { calculateWinner, tieCheck } from './ticTacToeHelpers';
+import { TicTacToePiece, TTTIndex } from '../types';
 
-export default function TicTacToe(props: {}) {
-  const [history, setHistory] = useState<{squares: TicTacToePiece[]}[]>(Array(9).fill(null));
+export default function TicTacToe() {
+  const [history, setHistory] = useState<{squares: TicTacToePiece[]}[]>([{squares: Array(9).fill(null)}]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
-  const handleClick = (i: number): void => {
+  const handleClick = (i: TTTIndex): void => {
     const newHistory = history.slice(0, stepNumber + 1);
     const current = newHistory[stepNumber];
     const squares = current.squares.slice();
@@ -23,7 +24,7 @@ export default function TicTacToe(props: {}) {
 
   const jumpTo = (move: number): void => {
     setStepNumber(move);
-    setXIsNext(move % 2 === 0);
+    setXIsNext(move % 2 == 0);
   }
 
   const current = history[stepNumber];
@@ -54,7 +55,7 @@ export default function TicTacToe(props: {}) {
       <div className="game-board">
         <Board 
           squares={current.squares}
-          onClick={(i) => handleClick(i)}
+          onClick={(i: TTTIndex) => handleClick(i)}
         />
       </div>
       <div className="game-info">
