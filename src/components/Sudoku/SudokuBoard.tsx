@@ -22,7 +22,7 @@ export default function SudokuBoard(props: SudokuBoardProps) {
     for(let j = 0; j < rows.length; j++) {
       squares[j] = renderSquare(i as SudokuIndex, j as SudokuIndex);
     }
-    rows[i] = <div>{squares}</div>;
+    rows[i] = <div className="board-row">{squares}</div>;
   }
   return <div>{rows}</div>
 }

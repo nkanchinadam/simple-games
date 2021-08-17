@@ -36,7 +36,7 @@ export default function UltimateTTT() {
 
   const jumpTo = (move: number): void => {
     setStepNumber(move);
-    setXIsNext(move % 2 == 0);
+    setXIsNext(move % 2 === 0);
   }
 
   const current = history[stepNumber]

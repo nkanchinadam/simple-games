@@ -24,7 +24,7 @@ export default function TicTacToe() {
 
   const jumpTo = (move: number): void => {
     setStepNumber(move);
-    setXIsNext(move % 2 == 0);
+    setXIsNext(move % 2 === 0);
   }
 
   const current = history[stepNumber];
@@ -44,7 +44,7 @@ export default function TicTacToe() {
     status = "Tied game";
   }
   else if(winner == null) {
-    status = "Next player: " + (xIsNext ? 'X' : 'Os');
+    status = "Next player: " + (xIsNext ? 'X' : 'O');
   }
   else {
     status = "Winner: " + winner;
