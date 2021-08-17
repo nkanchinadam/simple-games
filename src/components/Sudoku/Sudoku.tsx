@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../index.css';
 import { SudokuIndex, SudokuPiece } from '../types';
+import SudokuBoard from './SudokuBoard';
 
 export default function Sudoku() {
   let emptyGrid: SudokuPiece[][] = Array(9);
@@ -12,6 +13,14 @@ export default function Sudoku() {
   const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
   
   const handleClick = (i: SudokuIndex, j: SudokuIndex): void => {
-    
+    setSelectedX(i);
+    setSelectedY(j);
   }
+
+  return <SudokuBoard
+    squares={squares}
+    onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
+    selectedX={selectedX}
+    selectedY={selectedY}
+  />
 }

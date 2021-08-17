@@ -5,7 +5,9 @@ import { SudokuPiece, SudokuIndex } from '../types';
 
 interface SudokuBoardProps {
   squares: SudokuPiece[][],
-  onClick: (i: SudokuIndex, j: SudokuIndex) => void
+  onClick: (i: SudokuIndex, j: SudokuIndex) => void,
+  selectedX: SudokuIndex | null,
+  selectedY: SudokuIndex | null
 }
 
 export default function SudokuBoard(props: SudokuBoardProps) {
@@ -13,6 +15,7 @@ export default function SudokuBoard(props: SudokuBoardProps) {
     return <Square
       value={props.squares[i][j]}
       onClick={() => props.onClick(i, j)}
+      color={props.selectedX === i && props.selectedY === j ? '#FFA500' : '#FFFFFF'}
     />
   }
 

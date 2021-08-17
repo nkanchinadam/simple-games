@@ -10,6 +10,7 @@ interface TTTSquareProps {
 interface SudokuSquareProps {
   value: SudokuPiece | null;
   onClick: () => void;
+  color: string;
 }
 
 export default function Square(props: TTTSquareProps | SudokuSquareProps) {
@@ -17,6 +18,7 @@ export default function Square(props: TTTSquareProps | SudokuSquareProps) {
     <button
       className="square"
       onClick={props.onClick}
+      style={'color' in props ? {backgroundColor: props.color} : {backgroundColor: '#FFFFFF'}}
     >
       {props.value}
     </button>

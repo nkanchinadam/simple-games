@@ -5,5 +5,5 @@ import UltimateTTT from './UltimateTTT/UltimateTTT';
 import Sudoku from './Sudoku/Sudoku';
 
 export default function App() {
-  return <TicTacToe />
+  return <Sudoku />
 }
