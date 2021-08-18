@@ -10,6 +10,7 @@ interface TTTSquareProps {
 interface SudokuSquareProps {
   value: SudokuPiece,
   onClick: () => void,
+  onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
   color: string
 }
 
@@ -18,7 +19,7 @@ export default function Square(props: TTTSquareProps | SudokuSquareProps) {
     <button
       className="square"
       onClick={props.onClick}
-      onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {console.log(e);}}
+      onKeyDown={'onKeyDown' in props ? ((e: React.KeyboardEvent<HTMLButtonElement>) => props.onKeyDown(e)) : undefined}
       style={'color' in props ? {backgroundColor: props.color} : {backgroundColor: '#FFFFFF'}}
     >
       {props.value}

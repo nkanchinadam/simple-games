@@ -17,23 +17,31 @@ export default function Sudoku() {
     setSelectedY(j);
   }
 
-  const onKeyPress = (e: KeyboardEvent): void => {
-    if(!Number.isNaN(e.key) && Number.parseInt(e.key) !== 0) {
-      let num = Number.parseInt(e.key);
+  const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+    let newSquares = Array(9);
+    for(let i = 0; i < newSquares.length; i++) {
+      newSquares[i] = squares[i].slice();
+    }
+
+    let num = Number.parseInt(e.key)
+    if(!Number.isNaN(num) && num !== 0) {
       if(selectedX !== null && selectedY !== null) {
-        if(squares[selectedX][selectedY] === null) {
-          squares[selectedX][selectedY] = num as SudokuPiece;
+        if(newSquares[selectedX][selectedY] === null) {
+          newSquares[selectedX][selectedY] = num as SudokuPiece;
         }
-        else if(squares[selectedX][selectedY] === num) {
-          squares[selectedX][selectedY] = null;
+        else if(newSquares[selectedX][selectedY] === num) {
+          newSquares[selectedX][selectedY] = null;
         }
       }
     }
+    console.log(e.key);
+    setSquares(newSquares);
   }
 
   return <SudokuBoard
     squares={squares}
     onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
+    onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => onKeyDown(e)}
     selectedX={selectedX}
     selectedY={selectedY}
   />
