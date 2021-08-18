@@ -17,6 +17,20 @@ export default function Sudoku() {
     setSelectedY(j);
   }
 
+  const onKeyPress = (e: KeyboardEvent): void => {
+    if(!Number.isNaN(e.key) && Number.parseInt(e.key) !== 0) {
+      let num = Number.parseInt(e.key);
+      if(selectedX !== null && selectedY !== null) {
+        if(squares[selectedX][selectedY] === null) {
+          squares[selectedX][selectedY] = num as SudokuPiece;
+        }
+        else if(squares[selectedX][selectedY] === num) {
+          squares[selectedX][selectedY] = null;
+        }
+      }
+    }
+  }
+
   return <SudokuBoard
     squares={squares}
     onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
