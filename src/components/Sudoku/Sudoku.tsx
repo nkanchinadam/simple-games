@@ -19,24 +19,19 @@ export default function Sudoku() {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
     if(selectedX !== null && selectedY !== null) {
-      let newSquares = Array(9);
-      for(let i = 0; i < newSquares.length; i++) {
-        newSquares[i] = squares[i].slice();
-      }
-
       let num = Number.parseInt(e.key)
       if(!Number.isNaN(num) && num !== 0) {
-        if(newSquares[selectedX][selectedY] === null) {
-          newSquares[selectedX][selectedY] = num as SudokuPiece;
+        if(squares[selectedX][selectedY] === null) {
+          squares[selectedX][selectedY] = num as SudokuPiece;
         }
-        else if(newSquares[selectedX][selectedY] === num) {
-          newSquares[selectedX][selectedY] = null;
+        else if(squares[selectedX][selectedY] === num) {
+          squares[selectedX][selectedY] = null;
         }
       }
       else if(e.key === 'Backspace') {
-        newSquares[selectedX][selectedY] = null;
+        squares[selectedX][selectedY] = null;
       }
-      setSquares(newSquares);
+      setSquares(squares);
     }
   }
 
