@@ -8,8 +8,8 @@ interface SudokuBoardProps {
   squares: SudokuPiece[][],
   onClick: (i: SudokuIndex, j: SudokuIndex) => void,
   onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
-  selectedX: SudokuIndex | null,
-  selectedY: SudokuIndex | null
+  selectedX?: SudokuIndex,
+  selectedY?: SudokuIndex
 }
 
 export default function SudokuBoard(props: SudokuBoardProps) {
