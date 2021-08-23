@@ -4,32 +4,44 @@ import { SudokuIndex, SudokuPiece } from '../types';
 import SudokuBoard from './SudokuBoard';
 
 export default function Sudoku() {
-  let emptyGrid: SudokuPiece[][] = Array(9);
-  for(let i = 0; i < emptyGrid.length; i++) {
-    emptyGrid[i] = Array(9).fill(null);
-  }
-
-  let tempRows = Array(9);
-  let tempCols = Array(9);
-  let tempSections = Array(9);
-  for(let i = 0; i < tempRows.length; i++) {
-    let tempRow = Array(9);
-    let tempCol = Array(9);
-    let tempSection = Array(9);
-    for(let j = 0; j < tempRows.length; j++) {
-      tempRow[j] = i * tempRow.length + j;
-      tempCol[j] = j * tempCol.length + i;
-      tempSection[j] = (i / 3) * 27 + (i % 3) * 3 + (j / 3) * 9 + (j % 3)
+  const [rows, setRows] = useState<number[][]>((): number[][] => {
+    let rows: number[][] = Array(9);
+    for(let i = 0; i < rows.length; i++) {
+      rows[i] = Array(9);
+      for(let j = 0; j < rows.length; j++) {
+        rows[i][j] = i * rows.length + j;
+      }
     }
-    tempRows[i] = tempRow;
-    tempCols[i] = tempCol;
-    tempSections[i] = tempSection;
-  }
+    return rows;
+  });
+  const [cols, setCols] = useState<number[][]>((): number[][] => {
+    let cols: number[][] = Array(9);
+    for(let i = 0; i < cols.length; i++) {
+      cols[i] = Array(9);
+      for(let j = 0; j < cols.length; j++) {
+        cols[i][j] = j * cols.length + i;
+      }
+    }
+    return cols;
+  });
+  const [sections, setSections] = useState<number[][]>((): number[][] => {
+    let sections: number[][] = Array(9);
+    for(let i = 0; i < sections.length; i++) {
+      sections[i] = Array(9);
+      for(let j = 0; j < sections.length; j++) {
+        sections[i][j] = (i / 3) * 27 + (i % 3) * 3 + (j / 3) * 9 + (j % 3)
+      }
+    }
+    return sections;
+  });
 
-  const [squares, setSquares] = useState<SudokuPiece[][]>(emptyGrid);
-  const [rows, setRows] = useState<number[][]>(tempRows);
-  const [cols, setCols] = useState<number[][]>(tempCols);
-  const [sections, setSections] = useState<number[][]>(tempSections);
+  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => {
+    let squares: SudokuPiece[][] = Array(9);
+    for(let i = 0; i < squares.length; i++) {
+      squares[i] = Array(9).fill(null);
+    }
+    return squares;
+  });
   const [selectedX, setSelectedX] = useState<SudokuIndex | null>(null);
   const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
   
