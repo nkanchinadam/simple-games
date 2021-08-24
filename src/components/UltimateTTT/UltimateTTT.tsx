@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../index.css';
+import '../../index.css';
 import UltimateBoard from './UltimateBoard';
 import { calculateWinner, tieCheck } from '../TicTacToe/ticTacToeHelpers';
 import { calculateUltimateWinner, createReducedBoard } from './ultimateTTTHelpers';
@@ -78,7 +78,7 @@ export default function UltimateTTT() {
       </div>
       <div className="game-info">
         <div>{status}</div>
-        {winner || <div>boardDisplay</div>}
+        {winner || <div>{boardDisplay}</div>}
         <ol>{moves}</ol>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Key } from 'readline';
 import '../../index.css';
 import Square from '../Square';
 import { SudokuPiece, SudokuIndex } from '../types';

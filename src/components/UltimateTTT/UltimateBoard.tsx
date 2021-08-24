@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css';
+import '../../index.css';
 import TTTBoard from '../TicTacToe/TTTBoard';
 import { TicTacToePiece, TTTIndex } from '../types';
 

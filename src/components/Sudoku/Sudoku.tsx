@@ -64,7 +64,7 @@ export default function Sudoku() {
       else if(e.key === 'Backspace') {
         squares[selectedX][selectedY] = null;
       }
-      setSquares(squares);
+      setSquares(squares.slice());
     }
   }
 
