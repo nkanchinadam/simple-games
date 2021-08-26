@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../index.css';
 import { SudokuIndex, SudokuPiece } from '../types';
 import SudokuBoard from './SudokuBoard';
+import { winCheck } from './sudokuHelpers';
 
 export default function Sudoku() {
   const [rows, setRows] = useState<number[][]>((): number[][] => {
@@ -29,7 +30,7 @@ export default function Sudoku() {
     for(let i = 0; i < sections.length; i++) {
       sections[i] = Array(9);
       for(let j = 0; j < sections.length; j++) {
-        sections[i][j] = (i / 3) * 27 + (i % 3) * 3 + (j / 3) * 9 + (j % 3)
+        sections[i][j] = Math.floor(i / 3) * 27 + (i % 3) * 3 + Math.floor(j / 3) * 9 + (j % 3)
       }
     }
     return sections;
@@ -51,7 +52,7 @@ export default function Sudoku() {
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
-    if(selectedX !== null && selectedY !== null) {
+    if(selectedX !== null && selectedY !== null && !winCheck(squares)) {
       let num = Number.parseInt(e.key);
       if(!Number.isNaN(num) && num !== 0) {
         if(squares[selectedX][selectedY] === null) {
@@ -72,6 +73,7 @@ export default function Sudoku() {
     squares={squares}
     onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
     onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => onKeyDown(e)}
+    win={winCheck(squares)}
     selectedX={selectedX == null ? undefined : selectedX}
     selectedY={selectedY == null ? undefined: selectedY}
   />

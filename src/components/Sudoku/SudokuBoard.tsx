@@ -7,6 +7,7 @@ interface SudokuBoardProps {
   squares: SudokuPiece[][],
   onClick: (i: SudokuIndex, j: SudokuIndex) => void,
   onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void,
+  win: boolean,
   selectedX?: SudokuIndex,
   selectedY?: SudokuIndex
 }
@@ -17,7 +18,7 @@ export default function SudokuBoard(props: SudokuBoardProps) {
       value={props.squares[i][j]}
       onClick={() => props.onClick(i, j)}
       onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => props.onKeyDown(e)}
-      color={props.selectedX === i && props.selectedY === j ? '#FFA500' : '#FFFFFF'}
+      color={props.win ? '#00FF00' : (props.selectedX === i && props.selectedY === j ? '#FFA500' : '#FFFFFF')}
     />
   }
 

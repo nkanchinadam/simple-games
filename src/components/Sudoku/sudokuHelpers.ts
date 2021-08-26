@@ -14,7 +14,7 @@ function rowWinCheck(squares: SudokuPiece[][], row: SudokuIndex): boolean {
   for(let i = 0; i < squares.length; i++) {
     set.add(squares[row][i]);
   }
-  return set.size == 9 && !set.has(null);
+  return set.size === 9 && !set.has(null);
 }
 
 function colWinCheck(squares: SudokuPiece[][], col: SudokuIndex): boolean {
@@ -22,19 +22,19 @@ function colWinCheck(squares: SudokuPiece[][], col: SudokuIndex): boolean {
   for(let i = 0; i < squares.length; i++) {
     set.add(squares[i][col]);
   }
-  return set.size == 9 && !set.has(null);
+  return set.size === 9 && !set.has(null);
 }
 
 function sectionWinCheck(squares: SudokuPiece[][], section: SudokuIndex): boolean {
   let set = new Set<SudokuPiece>();
-  let topLeft = (section % 3) * 3 + (section / 3) * 27;
+  let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
   for(let i = 0; i < squares.length; i++) {
-    let squareNum = (i % 3) + (i / 3) * 9 + topLeft;
-    set.add(squares[squareNum / 9][squareNum % 9]);
+    let squareNum = topLeft + (i % 3) + Math.floor(i / 3) * 9;
+    set.add(squares[Math.floor(squareNum / 9)][squareNum % 9]);
   }
-  return set.size == 9 && !set.has(null);
+  return set.size === 9 && !set.has(null);
 }
-
+/*
 function getSectionIndex(row: SudokuIndex, col: SudokuIndex): SudokuIndex {
   return (row / 3) + (col / 3) * 3 as SudokuIndex;
 }
@@ -84,4 +84,4 @@ function sectionCheck(squares: SudokuPiece[][], section: SudokuIndex, piece: Sud
     }
   }
   return true;
-}
+}*/

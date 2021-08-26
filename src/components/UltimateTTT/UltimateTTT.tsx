@@ -78,7 +78,7 @@ export default function UltimateTTT() {
       </div>
       <div className="game-info">
         <div>{status}</div>
-        {winner || <div>{boardDisplay}</div>}
+        {winner == null ? <div>{boardDisplay}</div> : undefined}
         <ol>{moves}</ol>
       </div>
     </div>
