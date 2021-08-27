@@ -43,7 +43,6 @@ export default function Sudoku() {
   const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
   
   const createPuzzle = (numRemove: number): SudokuPiece[][] => {
-    setAnswer(generate());
     let squares = Array(9);
     for(let i = 0; i < squares.length; i++) {
       squares[i] = answer[i].slice();
@@ -62,6 +61,7 @@ export default function Sudoku() {
   }
 
   const newPuzzle = (numRemove: number): void => {
+    setAnswer(generate());
     setSquares(createPuzzle(numRemove));
   }
 
