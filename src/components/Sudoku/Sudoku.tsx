@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import '../../index.css';
 import { SudokuIndex, SudokuPiece } from '../types';
 import SudokuBoard from './SudokuBoard';
-import { winCheck } from './sudokuHelpers';
+import winCheck from './checks';
+import generate from './generate';
 
 export default function Sudoku() {
   const [rows, setRows] = useState<number[][]>((): number[][] => {
@@ -36,6 +37,7 @@ export default function Sudoku() {
     return sections;
   });
 
+  const [answer, setAnswer] = useState<SudokuPiece[][]>(generate(50))
   const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => {
     let squares: SudokuPiece[][] = Array(9);
     for(let i = 0; i < squares.length; i++) {
