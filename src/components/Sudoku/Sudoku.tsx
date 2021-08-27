@@ -37,17 +37,34 @@ export default function Sudoku() {
     return sections;
   });
 
-  const [answer, setAnswer] = useState<SudokuPiece[][]>(generate(50))
-  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => {
-    let squares: SudokuPiece[][] = Array(9);
-    for(let i = 0; i < squares.length; i++) {
-      squares[i] = Array(9).fill(null);
-    }
-    return squares;
-  });
+  const [answer, setAnswer] = useState<SudokuPiece[][]>(generate())
+  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(50));
   const [selectedX, setSelectedX] = useState<SudokuIndex | null>(null);
   const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
   
+  const createPuzzle = (numRemove: number): SudokuPiece[][] => {
+    setAnswer(generate());
+    let squares = Array(9);
+    for(let i = 0; i < squares.length; i++) {
+      squares[i] = answer[i].slice();
+    }
+
+    let arr = Array(squares.length * squares.length);
+    for(let i = 0; i < squares.length * squares.length; i++) {
+      arr[i] = i;
+    }
+    for(let i = 0; i < numRemove; i++) {
+      let index = Math.floor(Math.random() * arr.length);
+      squares[Math.floor(arr[index] / squares.length)][arr[index] % squares.length] = null;
+      arr.splice(index, 1);
+    }
+    return squares;
+  }
+
+  const newPuzzle = (numRemove: number): void => {
+    setSquares(createPuzzle(numRemove));
+  }
+
   const handleClick = (i: SudokuIndex, j: SudokuIndex): void => {
     setSelectedX(i);
     setSelectedY(j);
