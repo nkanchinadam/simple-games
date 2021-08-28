@@ -27,9 +27,9 @@ export default function generate(): SudokuPiece[][] {
   return board;
 }
 
-function fillSection(curr: SudokuIndex, squareNums: number[], board: SudokuPiece[][], index: SudokuIndex, checkRC: boolean): void {
+function fillSection(curr: SudokuIndex, squareNums: number[], board: SudokuPiece[][], index: SudokuIndex, checkRC: boolean): boolean {
   if(sectionWinCheck(board, index)) {
-    return;
+    return true;
   }
 
   let arr = Array(9);
@@ -44,8 +44,11 @@ function fillSection(curr: SudokuIndex, squareNums: number[], board: SudokuPiece
   for(let i = 0; i < board.length; i++) {
     board[Math.floor(squareNums[curr] / board.length)][squareNums[curr] % board.length] = arr[i];
     if(sectionValid(board, index) && (!checkRC || (rowValid(board, Math.floor(squareNums[curr] / board.length) as SudokuIndex) && colValid(board, squareNums[curr] % board.length as SudokuIndex)))) {
-      fillSection(curr + 1 as SudokuIndex, squareNums, board, index, checkRC);
+      if(fillSection(curr + 1 as SudokuIndex, squareNums, board, index, checkRC)) {
+        return true;
+      }
     }
     board[Math.floor(squareNums[curr] / board.length)][squareNums[curr] % board.length] = null;
   }
+  return false;
 }
