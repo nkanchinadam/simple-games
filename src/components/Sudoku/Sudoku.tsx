@@ -6,42 +6,8 @@ import winCheck from './checks';
 import generate from './generate';
 
 export default function Sudoku() {
-  const [rows, setRows] = useState<number[][]>((): number[][] => {
-    let rows: number[][] = Array(9);
-    for(let i = 0; i < rows.length; i++) {
-      rows[i] = Array(9);
-      for(let j = 0; j < rows.length; j++) {
-        rows[i][j] = i * rows.length + j;
-      }
-    }
-    return rows;
-  });
-  const [cols, setCols] = useState<number[][]>((): number[][] => {
-    let cols: number[][] = Array(9);
-    for(let i = 0; i < cols.length; i++) {
-      cols[i] = Array(9);
-      for(let j = 0; j < cols.length; j++) {
-        cols[i][j] = j * cols.length + i;
-      }
-    }
-    return cols;
-  });
-  const [sections, setSections] = useState<number[][]>((): number[][] => {
-    let sections: number[][] = Array(9);
-    for(let i = 0; i < sections.length; i++) {
-      sections[i] = Array(9);
-      for(let j = 0; j < sections.length; j++) {
-        sections[i][j] = Math.floor(i / 3) * 27 + (i % 3) * 3 + Math.floor(j / 3) * 9 + (j % 3)
-      }
-    }
-    return sections;
-  });
-
   const [answer, setAnswer] = useState<SudokuPiece[][]>(generate())
-  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(50));
-  const [selectedX, setSelectedX] = useState<SudokuIndex | null>(null);
-  const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
-  
+
   const createPuzzle = (numRemove: number): SudokuPiece[][] => {
     let squares = Array(9);
     for(let i = 0; i < squares.length; i++) {
@@ -59,6 +25,10 @@ export default function Sudoku() {
     }
     return squares;
   }
+
+  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(50));
+  const [selectedX, setSelectedX] = useState<SudokuIndex | null>(null);
+  const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
 
   const newPuzzle = (numRemove: number): void => {
     setAnswer(generate());
