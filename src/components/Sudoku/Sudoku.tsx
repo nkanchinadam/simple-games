@@ -26,7 +26,14 @@ export default function Sudoku() {
     return squares;
   }
 
-  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(50));
+  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(64));
+  const [initial, setInitial] = useState<SudokuPiece[][]>((): SudokuPiece[][] => {
+    let initial = Array(9);
+    for(let i = 0; i < squares.length; i++) {
+      initial[i] = squares[i].slice();
+    }
+    return initial;
+  });
   const [selectedX, setSelectedX] = useState<SudokuIndex | null>(null);
   const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
 
@@ -47,11 +54,11 @@ export default function Sudoku() {
         if(squares[selectedX][selectedY] === null) {
           squares[selectedX][selectedY] = num as SudokuPiece;
         }
-        else if(squares[selectedX][selectedY] === num) {
+        else if(squares[selectedX][selectedY] === num && initial[selectedX][selectedY] === null) {
           squares[selectedX][selectedY] = null;
         }
       }
-      else if(e.key === 'Backspace') {
+      else if(e.key === 'Backspace' && initial[selectedX][selectedY] === null) {
         squares[selectedX][selectedY] = null;
       }
       setSquares(squares.slice());
