@@ -63,7 +63,7 @@ export function sectionValid(squares: SudokuPiece[][], section: SudokuIndex): bo
   let set = new Set<SudokuPiece>();
   let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
   for(let i = 0; i < squares.length; i++) {
-    let squareNum = topLeft = (i % 3) + Math.floor(i / 3) * 9;
+    let squareNum = topLeft + (i % 3) + Math.floor(i / 3) * 9;
     let piece = squares[Math.floor(squareNum / squares.length)][squareNum % squares.length];
     if(piece !== null && set.has(piece)) {
       return false;

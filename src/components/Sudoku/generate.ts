@@ -27,7 +27,7 @@ export default function generate(): SudokuPiece[][] {
   return board;
 }
 
-function fillSection(curr: SudokuIndex, squareNums: number[], board: SudokuPiece[][], index: SudokuIndex, checkRC: boolean): boolean {
+function fillSection(curr: number, squareNums: number[], board: SudokuPiece[][], index: SudokuIndex, checkRC: boolean): boolean {
   if(sectionWinCheck(board, index)) {
     return true;
   }
