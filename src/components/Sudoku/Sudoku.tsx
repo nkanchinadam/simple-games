@@ -65,12 +65,21 @@ export default function Sudoku() {
     }
   }
 
-  return <SudokuBoard
-    squares={squares}
-    onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
-    onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => onKeyDown(e)}
-    win={winCheck(squares)}
-    selectedX={selectedX == null ? undefined : selectedX}
-    selectedY={selectedY == null ? undefined: selectedY}
-  />
+  return (
+    <div>
+      <div>
+        <SudokuBoard
+          squares={squares}
+          onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
+          onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => onKeyDown(e)}
+          win={winCheck(squares)}
+          selectedX={selectedX == null ? undefined : selectedX}
+          selectedY={selectedY == null ? undefined: selectedY}
+        />
+      </div>
+      <div>
+        <button onClick={(): void => newPuzzle(64)}>New Puzzle</button>
+      </div>
+    </div>
+  );
 }
