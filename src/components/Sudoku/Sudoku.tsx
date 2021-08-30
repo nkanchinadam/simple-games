@@ -26,7 +26,7 @@ export default function Sudoku() {
     return squares;
   }
 
-  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(64));
+  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(0));
   const [initial, setInitial] = useState<SudokuPiece[][]>((): SudokuPiece[][] => {
     let initial = Array(9);
     for(let i = 0; i < squares.length; i++) {
@@ -68,17 +68,18 @@ export default function Sudoku() {
   return (
     <div>
       <div>
+        {winCheck(squares) ? <p>You won!</p> : undefined}
         <SudokuBoard
           squares={squares}
-          onClick={(i: SudokuIndex, j: SudokuIndex) => {handleClick(i, j)}}
-          onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => onKeyDown(e)}
+          onClick={(i: SudokuIndex, j: SudokuIndex): void => {handleClick(i, j)}}
+          onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>): void => onKeyDown(e)}
           win={winCheck(squares)}
           selectedX={selectedX == null ? undefined : selectedX}
           selectedY={selectedY == null ? undefined: selectedY}
         />
       </div>
       <div>
-        <button onClick={(): void => newPuzzle(64)}>New Puzzle</button>
+        <button onClick={(): void => newPuzzle(0)}>New Puzzle</button>
       </div>
     </div>
   );

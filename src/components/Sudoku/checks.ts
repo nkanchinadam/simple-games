@@ -25,7 +25,7 @@ function colWinCheck(squares: SudokuPiece[][], col: SudokuIndex): boolean {
   return set.size === 9 && !set.has(null);
 }
 
-export function sectionWinCheck(squares: SudokuPiece[][], section: SudokuIndex): boolean {
+function sectionWinCheck(squares: SudokuPiece[][], section: SudokuIndex): boolean {
   let set = new Set<SudokuPiece>();
   let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
   for(let i = 0; i < squares.length; i++) {
