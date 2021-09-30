@@ -1,7 +1,7 @@
 import { SudokuIndex, SudokuPiece } from '../types';
 import winCheck, { rowValid, colValid, sectionValid } from './checks';
 
-export default function generate(/*numRemove: number*/): SudokuPiece[][] {
+export default function generate(): SudokuPiece[][] {
   let board = Array(9);
   for(let i = 0; i < board.length; i++) {
     board[i] = Array(9).fill(null);
@@ -17,19 +17,6 @@ export default function generate(/*numRemove: number*/): SudokuPiece[][] {
     fillSection(0, section, board, i as SudokuIndex);
   }
   fillFull(0, board);
-
-/*  let indices = Array(board.length * board.length);
-  for(let i = 0; i < board.length * board.length; i++) {
-    indices[i] = i + 1;
-  }
-  for(let i = indices.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
-  for(let i = 0; i < numRemove; i++) {
-    board[Math.floor(indices[i] / board.length)][indices[i] % board.length] = null;
-  }*/
-
   return board;
 }
 
@@ -73,14 +60,10 @@ function fillFull(curr: number, board: SudokuPiece[][]): boolean {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 
-  let nextIndex = curr + 1;
-  while(nextIndex !== board.length * board.length && board[Math.floor(nextIndex / board.length)][nextIndex % board.length] !== null) {
-    nextIndex++;
-  }
   for(let i = 0; i < board.length; i++) {
     board[Math.floor(curr / board.length)][curr % board.length] = arr[i];
     if(rowValid(board, Math.floor(curr / board.length) as SudokuIndex) && colValid(board, curr % board.length as SudokuIndex) && sectionValid(board, Math.floor(curr / 27) * 3 + Math.floor(curr / 3) as SudokuIndex)) {
-      if(fillFull(nextIndex, board)) {
+      if(fillFull(curr + 1, board)) {
         return true;
       }
     }
