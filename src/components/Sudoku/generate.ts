@@ -1,6 +1,6 @@
 import { SudokuPiece } from '../types';
 import winCheck, { rowValid, colValid, sectionValid } from './checks';
-import { indexToRow, indexToCol, indexToSection, sectionToTopLeft } from './conversions';
+import { indexToRow, indexToCol, indexToSection, sectionToTopLeft, sectionIndexToSquareNum } from './conversions';
 
 export default function generate(): SudokuPiece[][] {
   let board = Array(9);
@@ -9,13 +9,13 @@ export default function generate(): SudokuPiece[][] {
   }
 
   for(let i = 0; i < board.length; i += 4) {
-    let section = Array(9);
-    let topLeft = Math.floor(i / 3) * 27 + (i % 3) * 3;
+    let sectionNums = Array(9);
+    let topLeft = sectionToTopLeft(i);
     for(let j = 0; j < board.length; j++) {
-      section[j] = topLeft + Math.floor(j / 3) * 9 + j % 3;
+      sectionNums[j] = sectionIndexToSquareNum(topLeft, j);
     }
-    console.log(section)
-    fillSection(0, section, board, i);
+    console.log(sectionNums)
+    fillSection(0, sectionNums, board, i);
   }
   fillFull(0, board);
   return board;
