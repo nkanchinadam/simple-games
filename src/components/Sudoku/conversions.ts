@@ -15,3 +15,7 @@ export function indexToSection(index: number): number {
 export function sectionToTopLeft(section: number): number {
   return Math.floor(section / 3) * 27 + (section % 3) * 3;
 }
+
+export function sectionIndexToSquareNum(topLeft: number, index: number): number {
+  return topLeft + Math.floor(index / 3) * 9 + (index % 3);
+}

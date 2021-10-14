@@ -1,4 +1,5 @@
 import { SudokuPiece } from "../types";
+import { sectionIndexToSquareNum, sectionToTopLeft } from "./conversions";
 
 export default function winCheck(squares: SudokuPiece[][]): boolean {
   for(let i = 0; i < squares.length; i++) {
@@ -27,9 +28,9 @@ function colWinCheck(squares: SudokuPiece[][], col: number): boolean {
 
 function sectionWinCheck(squares: SudokuPiece[][], section: number): boolean {
   let set = new Set<SudokuPiece>();
-  let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
+  let topLeft = sectionToTopLeft(section);
   for(let i = 0; i < squares.length; i++) {
-    let squareNum = topLeft + (i % 3) + Math.floor(i / 3) * 9;
+    let squareNum = sectionIndexToSquareNum(topLeft, i);
     set.add(squares[Math.floor(squareNum / squares.length)][squareNum % squares.length]);
   }
   return set.size === 9 && !set.has(null);
@@ -61,11 +62,9 @@ export function colValid(squares: SudokuPiece[][], col: number): boolean {
 
 export function sectionValid(squares: SudokuPiece[][], section: number): boolean {
   let set = new Set<SudokuPiece>();
-  let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
-  console.log(section)
+  let topLeft = sectionToTopLeft(section);
   for(let i = 0; i < squares.length; i++) {
-    let squareNum = topLeft + (i % 3) + Math.floor(i / 3) * 9;
-    console.log('Squares' + squares);
+    let squareNum = sectionIndexToSquareNum(topLeft, i);
     let piece = squares[Math.floor(squareNum / squares.length)][squareNum % squares.length];
     if(piece !== null && set.has(piece)) {
       return false;
