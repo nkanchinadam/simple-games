@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import '../../index.css';
 import TTTBoard from './TTTBoard';
 import { calculateWinner, tieCheck } from './ticTacToeHelpers';
-import { TicTacToePiece, TTTIndex } from '../types';
+import { TicTacToePiece } from '../types';
 
 export default function TicTacToe() {
   const [history, setHistory] = useState<{squares: TicTacToePiece[]}[]>([{squares: Array(9).fill(null)}]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
-  const handleClick = (i: TTTIndex): void => {
+  const handleClick = (i: number): void => {
     const newHistory = history.slice(0, stepNumber + 1);
     const current = newHistory[stepNumber];
     const squares = current.squares.slice();
@@ -55,7 +55,7 @@ export default function TicTacToe() {
       <div className="game-board">
         <TTTBoard 
           squares={current.squares}
-          onClick={(i: TTTIndex) => handleClick(i)}
+          onClick={(i: number) => handleClick(i)}
         />
       </div>
       <div className="game-info">

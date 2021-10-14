@@ -1,15 +1,15 @@
 import React from 'react';
 import '../../index.css';
 import Square from '../Square';
-import { TicTacToePiece, TTTIndex } from '../types';
+import { TicTacToePiece } from '../types';
 
 interface TTTBoardProps {
   squares: TicTacToePiece[];
-  onClick: (i: TTTIndex) => void;
+  onClick: (i: number) => void;
 }
 
 export default function TTTBoard(props: TTTBoardProps) {
-  const renderSquare = (i: TTTIndex): JSX.Element => {
+  const renderSquare = (i: number): JSX.Element => {
     return <Square
       value={props.squares[i]}
       onClick={() => props.onClick(i)}

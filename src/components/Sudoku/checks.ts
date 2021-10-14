@@ -1,15 +1,15 @@
-import { SudokuIndex, SudokuPiece } from "../types";
+import { SudokuPiece } from "../types";
 
 export default function winCheck(squares: SudokuPiece[][]): boolean {
   for(let i = 0; i < squares.length; i++) {
-    if(!rowWinCheck(squares, i as SudokuIndex) || !colWinCheck(squares, i as SudokuIndex) || !sectionWinCheck(squares, i as SudokuIndex)) {
+    if(!rowWinCheck(squares, i) || !colWinCheck(squares, i) || !sectionWinCheck(squares, i)) {
       return false;
     }
   }
   return true;
 }
 
-function rowWinCheck(squares: SudokuPiece[][], row: SudokuIndex): boolean {
+function rowWinCheck(squares: SudokuPiece[][], row: number): boolean {
   let set = new Set<SudokuPiece>();
   for(let i = 0; i < squares.length; i++) {
     set.add(squares[row][i]);
@@ -17,7 +17,7 @@ function rowWinCheck(squares: SudokuPiece[][], row: SudokuIndex): boolean {
   return set.size === 9 && !set.has(null);
 }
 
-function colWinCheck(squares: SudokuPiece[][], col: SudokuIndex): boolean {
+function colWinCheck(squares: SudokuPiece[][], col: number): boolean {
   let set = new Set<SudokuPiece>();
   for(let i = 0; i < squares.length; i++) {
     set.add(squares[i][col]);
@@ -25,7 +25,7 @@ function colWinCheck(squares: SudokuPiece[][], col: SudokuIndex): boolean {
   return set.size === 9 && !set.has(null);
 }
 
-function sectionWinCheck(squares: SudokuPiece[][], section: SudokuIndex): boolean {
+function sectionWinCheck(squares: SudokuPiece[][], section: number): boolean {
   let set = new Set<SudokuPiece>();
   let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
   for(let i = 0; i < squares.length; i++) {
@@ -35,7 +35,7 @@ function sectionWinCheck(squares: SudokuPiece[][], section: SudokuIndex): boolea
   return set.size === 9 && !set.has(null);
 }
 
-export function rowValid(squares: SudokuPiece[][], row: SudokuIndex): boolean {
+export function rowValid(squares: SudokuPiece[][], row: number): boolean {
   let set = new Set<SudokuPiece>();
   for(let i = 0; i < squares.length; i++) {
     let piece = squares[row][i];
@@ -47,7 +47,7 @@ export function rowValid(squares: SudokuPiece[][], row: SudokuIndex): boolean {
   return true;
 }
 
-export function colValid(squares: SudokuPiece[][], col: SudokuIndex): boolean {
+export function colValid(squares: SudokuPiece[][], col: number): boolean {
   let set = new Set<SudokuPiece>();
   for(let i = 0; i < squares.length; i++) {
     let piece = squares[i][col];
@@ -59,7 +59,7 @@ export function colValid(squares: SudokuPiece[][], col: SudokuIndex): boolean {
   return true;
 }
 
-export function sectionValid(squares: SudokuPiece[][], section: SudokuIndex): boolean {
+export function sectionValid(squares: SudokuPiece[][], section: number): boolean {
   let set = new Set<SudokuPiece>();
   let topLeft = (section % 3) * 3 + Math.floor(section / 3) * 27;
   console.log(section)

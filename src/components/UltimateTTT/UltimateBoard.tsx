@@ -1,18 +1,18 @@
 import React from 'react';
 import '../../index.css';
 import TTTBoard from '../TicTacToe/TTTBoard';
-import { TicTacToePiece, TTTIndex } from '../types';
+import { TicTacToePiece } from '../types';
 
 interface UltimateBoardProps {
   boards: TicTacToePiece[][],
-  onClick: (i: TTTIndex, j: TTTIndex) => void
+  onClick: (i: number, j: number) => void
 }
 
 export default function UltimateBoard(props: UltimateBoardProps) {
-  const renderBoard = (i: TTTIndex): JSX.Element => {
+  const renderBoard = (i: number): JSX.Element => {
     return <TTTBoard
       squares={props.boards[i]}
-      onClick={(j: TTTIndex) => props.onClick(i, j)}
+      onClick={(j: number) => props.onClick(i, j)}
     />
   }
 

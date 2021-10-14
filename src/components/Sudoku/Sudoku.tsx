@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../index.css';
-import { SudokuIndex, SudokuPiece } from '../types';
+import { SudokuPiece } from '../types';
 import SudokuBoard from './SudokuBoard';
 import winCheck from './checks';
 import generate from './generate';
@@ -34,15 +34,15 @@ export default function Sudoku() {
     }
     return initial;
   });
-  const [selectedX, setSelectedX] = useState<SudokuIndex | null>(null);
-  const [selectedY, setSelectedY] = useState<SudokuIndex | null>(null);
+  const [selectedX, setSelectedX] = useState<number | null>(null);
+  const [selectedY, setSelectedY] = useState<number | null>(null);
 
   const newPuzzle = (numRemove: number): void => {
     setAnswer(generate());
     setSquares(createPuzzle(numRemove));
   }
 
-  const handleClick = (i: SudokuIndex, j: SudokuIndex): void => {
+  const handleClick = (i: number, j: number): void => {
     setSelectedX(i);
     setSelectedY(j);
   }
@@ -71,7 +71,7 @@ export default function Sudoku() {
         {winCheck(squares) ? <p>You won!</p> : undefined}
         <SudokuBoard
           squares={squares}
-          onClick={(i: SudokuIndex, j: SudokuIndex): void => {handleClick(i, j)}}
+          onClick={(i: number, j: number): void => {handleClick(i, j)}}
           onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>): void => onKeyDown(e)}
           win={winCheck(squares)}
           selectedX={selectedX == null ? undefined : selectedX}

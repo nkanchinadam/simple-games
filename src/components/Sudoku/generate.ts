@@ -1,4 +1,4 @@
-import { SudokuIndex, SudokuPiece } from '../types';
+import { SudokuPiece } from '../types';
 import winCheck, { rowValid, colValid, sectionValid } from './checks';
 import { indexToRow, indexToCol, indexToSection, sectionToTopLeft } from './conversions';
 
@@ -15,13 +15,13 @@ export default function generate(): SudokuPiece[][] {
       section[j] = topLeft + Math.floor(j / 3) * 9 + j % 3;
     }
     console.log(section)
-    fillSection(0, section, board, i as SudokuIndex);
+    fillSection(0, section, board, i);
   }
   fillFull(0, board);
   return board;
 }
 
-function fillSection(curr: number, squareNums: number[], board: SudokuPiece[][], index: SudokuIndex): boolean {
+function fillSection(curr: number, squareNums: number[], board: SudokuPiece[][], index: number): boolean {
   if(curr === 9) {
     return true;
   }
@@ -38,7 +38,7 @@ function fillSection(curr: number, squareNums: number[], board: SudokuPiece[][],
   for(let i = 0; i < board.length; i++) {
     board[Math.floor(squareNums[curr] / board.length)][squareNums[curr] % board.length] = arr[i];
     if(sectionValid(board, index)) {
-      if(fillSection(curr + 1 as SudokuIndex, squareNums, board, index)) {
+      if(fillSection(curr + 1, squareNums, board, index)) {
         return true;
       }
     }
@@ -66,7 +66,7 @@ function fillFull(curr: number, board: SudokuPiece[][]): boolean {
   }
   for(let i = 0; i < board.length; i++) {
     board[Math.floor(curr / board.length)][curr % board.length] = arr[i];
-    if(rowValid(board, Math.floor(curr / board.length) as SudokuIndex) && colValid(board, curr % board.length as SudokuIndex) && sectionValid(board, Math.floor(curr / 27) * 3 + Math.floor(curr / 27) as SudokuIndex)) {
+    if(rowValid(board, Math.floor(curr / board.length)) && colValid(board, curr % board.length) && sectionValid(board, Math.floor(curr / 27) * 3 + Math.floor(curr / 27))) {
       if(fillFull(curr + 1, board)) {
         return true;
       }

@@ -3,18 +3,18 @@ import '../../index.css';
 import UltimateBoard from './UltimateBoard';
 import { calculateWinner, tieCheck } from '../TicTacToe/ticTacToeHelpers';
 import { calculateUltimateWinner, createReducedBoard } from './ultimateTTTHelpers';
-import { TicTacToePiece, TTTIndex } from '../types';
+import { TicTacToePiece } from '../types';
 
 export default function UltimateTTT() {
   let boards: TicTacToePiece[][] = Array(9);
   for(let i = 0; i < boards.length; i++) {
     boards[i] = Array(9).fill(null);
   }
-  const [history, setHistory] = useState<{boards: TicTacToePiece[][], nextBoard: TTTIndex | null}[]>([{boards: boards, nextBoard: null}]);
+  const [history, setHistory] = useState<{boards: TicTacToePiece[][], nextBoard: number | null}[]>([{boards: boards, nextBoard: null}]);
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
-  const handleClick = (i: TTTIndex, j: TTTIndex): void => {
+  const handleClick = (i: number, j: number): void => {
     const newHistory = history.slice(0, stepNumber + 1);
     const current = newHistory[stepNumber];
     const boards = Array(9);
@@ -25,7 +25,7 @@ export default function UltimateTTT() {
       return;
     }
     boards[i][j] = xIsNext ? 'X' : 'O';
-    let nextBoard: TTTIndex | null = null;
+    let nextBoard: number | null = null;
     if(calculateWinner(boards[j]) == null) {
       nextBoard = j;
     }
@@ -59,7 +59,7 @@ export default function UltimateTTT() {
   }
   boardDisplay = "Next board: " + boardDisplay;
 
-  let moves = history.map((value: {boards: TicTacToePiece[][], nextBoard: TTTIndex | null}, move: number) => {
+  let moves = history.map((value: {boards: TicTacToePiece[][], nextBoard: number | null}, move: number) => {
     const description = move === 0 ? "Go to game start" : "Go to move #" + move;
     return (
       <li key={move}>
@@ -73,7 +73,7 @@ export default function UltimateTTT() {
       <div className="game-board">
         <UltimateBoard
           boards={current.boards}
-          onClick={(i: TTTIndex, j: TTTIndex) => handleClick(i, j)}
+          onClick={(i: number, j: number) => handleClick(i, j)}
         />
       </div>
       <div className="game-info">
