@@ -9,7 +9,7 @@ export function indexToCol(index: number): number {
 }
 
 export function indexToSection(index: number): number {
-  return Math.floor(index / 27) * 3 + Math.floor(index / 3);
+  return Math.floor(index / 27) * 3 + Math.floor(index / 3) % 3;
 }
 
 export function sectionToTopLeft(section: number): number {

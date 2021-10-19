@@ -65,6 +65,7 @@ export function sectionValid(squares: SudokuPiece[][], section: number): boolean
   let topLeft = sectionToTopLeft(section);
   for(let i = 0; i < squares.length; i++) {
     let squareNum = sectionIndexToSquareNum(topLeft, i);
+    console.log(squareNum)
     let piece = squares[Math.floor(squareNum / squares.length)][squareNum % squares.length];
     if(piece !== null && set.has(piece)) {
       return false;

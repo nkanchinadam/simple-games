@@ -14,7 +14,6 @@ export default function generate(): SudokuPiece[][] {
     for(let j = 0; j < board.length; j++) {
       sectionNums[j] = sectionIndexToSquareNum(topLeft, j);
     }
-    console.log(sectionNums)
     fillSection(0, sectionNums, board, i);
   }
   fillFull(0, board);
@@ -61,12 +60,10 @@ function fillFull(curr: number, board: SudokuPiece[][]): boolean {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 
-  while(board[Math.floor(curr / board.length)][curr % board.length] === null && curr !== 80) {
-    curr++;
-  }
   for(let i = 0; i < board.length; i++) {
     board[Math.floor(curr / board.length)][curr % board.length] = arr[i];
-    if(rowValid(board, Math.floor(curr / board.length)) && colValid(board, curr % board.length) && sectionValid(board, Math.floor(curr / 27) * 3 + Math.floor(curr / 27))) {
+    console.log(board)
+    if(rowValid(board, indexToRow(curr)) && colValid(board, indexToCol(curr)) && sectionValid(board, indexToSection(curr))) {
       if(fillFull(curr + 1, board)) {
         return true;
       }
