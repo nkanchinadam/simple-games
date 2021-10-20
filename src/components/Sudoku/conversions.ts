@@ -1,5 +1,3 @@
-import { SudokuPiece } from "../types";
-
 export function indexToRow(index: number): number {
   return Math.floor(index / 9);
 }

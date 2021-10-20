@@ -7,7 +7,6 @@ import generate from './generate';
 
 export default function Sudoku() {
   const [answer, setAnswer] = useState<SudokuPiece[][]>(generate())
-  console.log('Answer: ' + answer);
 
   const createPuzzle = (numRemove: number): SudokuPiece[][] => {
     let squares = Array(9);
@@ -27,7 +26,7 @@ export default function Sudoku() {
     return squares;
   }
 
-  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(1));
+  const [squares, setSquares] = useState<SudokuPiece[][]>((): SudokuPiece[][] => createPuzzle(40));
   const [initial, setInitial] = useState<SudokuPiece[][]>((): SudokuPiece[][] => {
     let initial = Array(9);
     for(let i = 0; i < squares.length; i++) {
