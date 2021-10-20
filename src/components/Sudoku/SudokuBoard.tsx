@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../index.css';
+import { GREEN, ORANGE, WHITE } from '../colors';
 import Square from '../Square';
 import { SudokuPiece } from '../types';
 
@@ -18,7 +19,7 @@ export default function SudokuBoard(props: SudokuBoardProps) {
       value={props.squares[i][j]}
       onClick={() => props.onClick(i, j)}
       onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => props.onKeyDown(e)}
-      color={props.win ? '#00FF00' : (props.selectedX === i && props.selectedY === j ? '#FFA500' : '#FFFFFF')}
+      color={props.win ? GREEN : (props.selectedX === i && props.selectedY === j ? ORANGE : WHITE)}
     />
   }
 
